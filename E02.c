@@ -13,6 +13,9 @@ void iniciarArre(Tarea** A, int k);
 void liberarArre(Tarea** A, int k);
 void descripcion(char *k);
 void cargarTareas(Tarea **A, int k);
+void controlarTareas(Tarea **A, Tarea **B, int k);
+void mostrarTarea(Tarea* T);
+void mostrarArreglo(Tarea** A, int k);
 
 int main()
 {
@@ -63,4 +66,37 @@ void cargarTareas(Tarea **A, int k)
         descripcion(A[i]->Descripcion);
         A[i]->Duracion = rand() % 91 + 10;
     }    
+}
+
+void controlarTareas(Tarea **A, Tarea **B, int k)
+{
+    int resp, p=0;
+    for (int i = 0; i < k; i++){
+        mostrarTarea(A[i]);
+        printf("Hizo la tarea?(SI=1/NO=0)");
+        scanf("%d", &resp);
+        if(resp==1){
+            B[p] = A[i];
+            A[i] = NULL;
+            p++;
+        }
+    }
+    
+}
+
+void mostrarTarea(Tarea* T)
+{
+    printf("\nID TAREA: %d\n", T->TareaID);
+    puts("DESCRIPCION:");
+    puts(T->Descripcion);
+    printf("DURACION: %d\n", T->TareaID);
+}
+
+void mostrarArreglo(Tarea** A, int k)
+{
+    for (int i = 0; i < k; i++){
+        if(A[i]!=NULL){
+            mostrarTarea(A[i]);
+        }
+    }
 }
