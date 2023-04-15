@@ -16,7 +16,7 @@ void cargarTareas(Tarea **A, int k);
 void controlarTareas(Tarea **A, Tarea **B, int k);
 void mostrarTarea(Tarea* T);
 void mostrarArreglo(Tarea** A, int k);
-
+Tarea* busquedaTarea(Tarea** A, Tarea** B, int k);
 
 int main()
 {
@@ -41,6 +41,7 @@ int main()
     mostrarArreglo(tareasRealizadas, cantTareas);
     puts("Tareas pendientes");
     mostrarArreglo(tareasPendientes, cantTareas);
+    mostrarTarea(busquedaTarea(tareasPendientes, tareasRealizadas,cantTareas));
 
     return 0;
 }
@@ -98,10 +99,14 @@ void controlarTareas(Tarea **A, Tarea **B, int k)
 
 void mostrarTarea(Tarea* T)
 {
-    printf("\nID TAREA: %d\n", T->TareaID);
-    puts("DESCRIPCION:");
-    puts(T->Descripcion);
-    printf("DURACION: %d\n", T->Duracion);
+    if(T!=NULL){
+        printf("\nID TAREA: %d\n", T->TareaID);
+        puts("DESCRIPCION:");
+        puts(T->Descripcion);
+        printf("DURACION: %d\n", T->Duracion);
+    }else{
+        puts("La tarea no existe");
+    }
 }
 
 void mostrarArreglo(Tarea** A, int k)
@@ -111,4 +116,27 @@ void mostrarArreglo(Tarea** A, int k)
             mostrarTarea(A[i]);
         }
     }
+}
+
+Tarea* busquedaTarea(Tarea** A, Tarea** B, int k)
+{
+    int id;
+    printf("\nIngrese el ID de la tarea a buscar");
+    scanf("%d", &id);
+    fflush(stdin);
+    for (int i = 0; i < k; i++){
+        if(A[i] != NULL){
+            if((A[i]->TareaID) == id){
+                puts("Esta en PENDIENTES");
+                return(A[i]);
+            } 
+        }
+        if(B[i] != NULL){  
+            if((B[i]->TareaID) == id){
+                puts("Esta en REALIZADAS");
+                return(B[i]);
+            }
+        }    
+    }
+    return NULL;
 }
