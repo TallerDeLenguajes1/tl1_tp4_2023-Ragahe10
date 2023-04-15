@@ -16,8 +16,8 @@ void cargarTareas(Tarea **A, int k);
 void controlarTareas(Tarea **A, Tarea **B, int k);
 void mostrarTarea(Tarea* T);
 void mostrarArreglo(Tarea** A, int k);
-Tarea* buscarTarea(Tarea** A, Tarea** B, int k);
-
+Tarea* buscarTareaPorId(Tarea** A, Tarea** B, int k);
+Tarea* busquedaTareaPorPalabra(Tarea** A, Tarea** B, int k);
 
 int main()
 {
@@ -42,8 +42,9 @@ int main()
     mostrarArreglo(tareasRealizadas, cantTareas);
     puts("Tareas pendientes");
     mostrarArreglo(tareasPendientes, cantTareas);
-
-    mostrarTarea(buscarTarea(tareasPendientes, tareasRealizadas, cantTareas));
+    
+    mostrarTarea(busquedaTareaPorPalabra(tareasPendientes, tareasRealizadas,cantTareas));
+    mostrarTarea(buscarTareaPorId(tareasPendientes, tareasRealizadas, cantTareas));
 
     return 0;
 }
@@ -121,7 +122,7 @@ void mostrarArreglo(Tarea** A, int k)
     }
 }
 
-Tarea* buscarTarea(Tarea** A, Tarea** B, int k)
+Tarea* buscarTareaPorId(Tarea** A, Tarea** B, int k)
 {
     char P[100];
     printf("\nIngrese DESCRIPCION de la tarea a buscar: ");
@@ -135,6 +136,28 @@ Tarea* buscarTarea(Tarea** A, Tarea** B, int k)
             puts("La Tarea esta REALIZADAS");
             return B[i];
         }
+    }
+    return NULL;
+}
+Tarea* busquedaTareaPorPalabra(Tarea** A, Tarea** B, int k)
+{
+    int id;
+    printf("\nIngrese el ID de la tarea a buscar");
+    scanf("%d", &id);
+    fflush(stdin);
+    for (int i = 0; i < k; i++){
+        if(A[i] != NULL){
+            if((A[i]->TareaID) == id){
+                puts("Esta en PENDIENTES");
+                return(A[i]);
+            } 
+        }
+        if(B[i] != NULL){  
+            if((B[i]->TareaID) == id){
+                puts("Esta en REALIZADAS");
+                return(B[i]);
+            }
+        }    
     }
     return NULL;
 }
