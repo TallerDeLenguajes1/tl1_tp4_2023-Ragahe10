@@ -17,6 +17,7 @@ void controlarTareas(Tarea **A, Tarea **B, int k);
 void mostrarTarea(Tarea* T);
 void mostrarArreglo(Tarea** A, int k);
 
+
 int main()
 {
     int cantTareas;
@@ -54,6 +55,7 @@ void iniciarArre(Tarea** A, int k)
 void liberarArre(Tarea** A, int k)
 {
     for (int i = 0; i < k; i++){
+        free(A[i]->Descripcion);
         free(A[i]);
     }
     free(A);   
@@ -91,8 +93,7 @@ void controlarTareas(Tarea **A, Tarea **B, int k)
             A[i] = NULL;
             p++;
         }
-    }
-    
+    }    
 }
 
 void mostrarTarea(Tarea* T)
