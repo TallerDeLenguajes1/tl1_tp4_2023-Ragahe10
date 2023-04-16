@@ -42,10 +42,12 @@ int main()
     mostrarArreglo(tareasRealizadas, cantTareas);
     puts("Tareas pendientes");
     mostrarArreglo(tareasPendientes, cantTareas);
-    
+
     mostrarTarea(busquedaTareaPorPalabra(tareasPendientes, tareasRealizadas,cantTareas));
     mostrarTarea(buscarTareaPorId(tareasPendientes, tareasRealizadas, cantTareas));
 
+    liberarArre(tareasPendientes, cantTareas);
+    liberarArre(tareasRealizadas, cantTareas);
     return 0;
 }
 
@@ -59,7 +61,9 @@ void iniciarArre(Tarea** A, int k)
 void liberarArre(Tarea** A, int k)
 {
     for (int i = 0; i < k; i++){
-        free(A[i]->Descripcion);
+        if(A[i] != NULL){
+            free(A[i]->Descripcion);
+        }
         free(A[i]);
     }
     free(A);   
@@ -122,7 +126,7 @@ void mostrarArreglo(Tarea** A, int k)
     }
 }
 
-Tarea* buscarTareaPorId(Tarea** A, Tarea** B, int k)
+Tarea* buscarTareaPorPalabra(Tarea** A, Tarea** B, int k)
 {
     char P[100];
     printf("\nIngrese DESCRIPCION de la tarea a buscar: ");
@@ -139,7 +143,7 @@ Tarea* buscarTareaPorId(Tarea** A, Tarea** B, int k)
     }
     return NULL;
 }
-Tarea* busquedaTareaPorPalabra(Tarea** A, Tarea** B, int k)
+Tarea* busquedaTareaPorID(Tarea** A, Tarea** B, int k)
 {
     int id;
     printf("\nIngrese el ID de la tarea a buscar");
