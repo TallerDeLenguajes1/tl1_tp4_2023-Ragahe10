@@ -349,12 +349,11 @@ struct Nodo* quitarNodoPorID(Lista *L , int id)
     struct Nodo *aux, *auxAnterior;
 
     if(*L != NULL){
-        if((*L)->Siguiente == NULL){
-           if( (*L)->T.TareaID == id){ 
-                aux = *L;
-                *L = NULL;
-                return aux;
-           }
+        if( (*L)->T.TareaID == id){ 
+            aux = *L;
+            *L = NULL;
+            return aux;
+        
         }else{
             auxAnterior = (*L);
             aux = (*L)->Siguiente;
